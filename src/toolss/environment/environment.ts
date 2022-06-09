@@ -1,3 +1,3 @@
 export default {
-    mongoUrl: "mongodb+srv://Alicngl:<password>@cluster0.4cdxw.mongodb.net/?retryWrites=true&w=majority"
+    mongoUrl: "mongodb+srv://Cngl:<password>@cluster0.dxln2.mongodb.net/?retryWrites=true&w=majority"
 }

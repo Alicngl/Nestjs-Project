@@ -1,8 +1,8 @@
-import { TicketTypeModel } from "../modules/ticket-type.model";
-import { UserModel } from "../modules/user.model";
-import { AuditModel } from "../modules/audit.model";
-import { ActivityModel } from "../modules/activity.model";
-import { InventoryModel } from "../modules/inventory.model";
+import { TicketTypeModel } from "../models/ticket-type.model";
+import { UserModel } from "../models/user.model";
+import { AuditModel } from "../models/audit.model";
+import { ActivityModel } from "../models/activity.model";
+import { InventoryModel } from "../models/inventory.model";
 
 export class TicketCreateDto {
     name: string;

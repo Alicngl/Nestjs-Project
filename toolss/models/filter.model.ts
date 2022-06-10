@@ -5,3 +5,4 @@ export class FilterModel {
     sortBy: string;
     querycBy: string;
 }
+

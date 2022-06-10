@@ -1,60 +1,62 @@
-// import { Injectable } from '@nestjs/common';
-// import { UserModel } from 'tools/models/user.model';
-// import { UserLoginDto } from 'tools/dtos/user.dto';
-// import { InjectModel } from '@nestjs/mongoose';
-// import { Model } from 'mongoose';
-// import { UserService } from 'src/user/user.service';
-// import environment from 'tools/environment/environment';
-// import * as jwt from 'jsonwebtoken';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { UserCreateDto, UserLoginDto, UserUpdateDto } from 'toolss/dtos/user.dto';
+import { UserModel } from 'toolss/models/user.model';
+import { Model } from "mongoose"
+import { AuditModel } from 'toolss/models/audit.model';
+import { ResourceService } from 'libs/services/resource.service';
+import environment from 'toolss/environment/environment';
+import { UserService } from 'src/user/user.service';
 
-// @Injectable()
-// export class LoginService {
-//   constructor(
-//     @InjectModel('User') private readonly userMongo: Model<UserModel>,
-//     private readonly userService: UserService,
-//   ) {}
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const hashText = environment.hashText;
 
-//   async loginUser(user: UserLoginDto): Promise<any> {
-//     try {
-//       const existUser = await this.userMongo
-//         .findOne({
-//           email: user.email,
-//         })
-//         .exec();
+@Injectable()
+export class LoginService {
+    constructor(@InjectModel("User") private readonly userMongo: Model<UserModel>, private userService: UserService) { }
 
-//       if (existUser) {
-//         let checkPwd;
-//         await this.userService
-//           .compareHashes(user.password, existUser.password)
-//           .then(resp => {
-//             if (resp) {
-//               checkPwd = true;
-//             } else {
-//               checkPwd = false;
-//             }
-//           });
+    async loginUser(user: UserLoginDto): Promise<any> {
+        try {
+            const existUser = await this.userMongo
+                .findOne({
+                    email: user.email,
+                })
+                .exec();
 
-//         if (checkPwd) {
-//           const authJsonWebToken = jwt.sign(
-//             { user: existUser },
-//             environment.jwtText,
-//           );
-//           return await { success: true, value: authJsonWebToken };
-//         } else {
-//           return await {
-//             success: false,
-//             response: 'user password is incorrect!',
-//           };
-//         }
-//       } else {
-//         return await { success: false, response: 'user does not exist!' };
-//       }
-//     } catch (ex) {
-//       return await {
-//         success: false,
-//         response: 'something went wrong while login process!',
-//         exception: ex,
-//       };
-//     }
-//   }
-// }
+            if (existUser) {
+                let checkPwd;
+                await this.userService
+                    .compareHashes(user.password, existUser.password)
+                    .then(resp => {
+                        if (resp) {
+                            checkPwd = true;
+                        } else {
+                            checkPwd = false;
+                        }
+                    });
+
+                if (checkPwd) {
+
+
+                    return await { success: true, value: existUser };
+                } else {
+                    return await {
+                        success: false,
+                        response: 'user password is incorrect!',
+                    };
+                }
+            } else {
+                return await { success: false, response: 'user does not exist!' };
+            }
+        } catch (ex) {
+            return await {
+                success: false,
+                response: 'something went wrong while login process!',
+                exception: ex,
+            };
+        }
+    }
+
+
+}

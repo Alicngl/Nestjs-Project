@@ -26,7 +26,7 @@ export class RoleController {
     }
 
     @Get(':id')
-    async GetRole(@Param() params): Promise<RoleModel[]> {
+    async GetRole(@Param() params): Promise<RoleModel> {
         return this.roleService.findOne(params.id);
     }
 

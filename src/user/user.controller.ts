@@ -9,16 +9,18 @@ export class UserController {
 
     @Post()
     async createuser(@Body() body: UserCreateDto): Promise<UserModel> {
+        body.password = await this.userService.convertToHash(body.password);
         return await this.userService.create(body)
     }
 
     @Get()
     async getAllUsers(@Query() query: FilterModel): Promise<UserModel[]> {
+
         return await this.userService.findAll(query);
     }
 
     @Get(":id")
-    async getUser(@Param() params): Promise<UserModel[]> {
+    async getUser(@Param() params): Promise<UserModel> {
         return await this.userService.findOne(params.id);
     }
 

@@ -26,7 +26,7 @@ export class GroupController {
     }
 
     @Get(':id')
-    async GetGroup(@Param() params): Promise<GroupModel[]> {
+    async GetGroup(@Param() params): Promise<GroupModel> {
         return this.groupService.findOne(params.id);
     }
 

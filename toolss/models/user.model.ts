@@ -23,6 +23,7 @@ export const UserSchema = new mongoose.Schema({
     surname: String,
     email: String,
     birthDay: Date,
+    password: String,
     audit: Object,
     roles: Array,
     groups: Array,

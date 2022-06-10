@@ -30,7 +30,7 @@ export class TicketTypeController {
     }
 
     @Get(':id')
-    async GetTicketType(@Param() params): Promise<TicketTypeModel[]> {
+    async GetTicketType(@Param() params): Promise<TicketTypeModel> {
         return this.ticketTypeService.findOne(params.id);
     }
 

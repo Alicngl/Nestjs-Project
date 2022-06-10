@@ -1,16 +1,18 @@
 import { RoleModel } from "../models/role.model";
 import { GroupModel } from "../models/group.model";
-import { IsNotEmpty, Length } from "class-validator"
+import { IsDateString, IsEmail, IsNotEmpty, Length } from "class-validator"
 
 export class UserCreateDto {
     @IsNotEmpty()
     @Length(2, 20)
     name: string;
-    @Length(2, 20)
     surname: string;
     password: string;
+    iamge: string;
+    @IsEmail()
     email: string;
     birthdate: Date;
+
 }
 
 export class UserUpdateDto {

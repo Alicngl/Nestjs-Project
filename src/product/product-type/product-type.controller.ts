@@ -28,7 +28,7 @@ export class ProductTypeController {
     }
 
     @Get(':id')
-    async GetProductType(@Param() params): Promise<ProductTypeModel[]> {
+    async GetProductType(@Param() params): Promise<ProductTypeModel> {
         return this.productTypeService.findOne(params.id);
     }
 

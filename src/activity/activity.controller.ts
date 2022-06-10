@@ -27,7 +27,7 @@ export class ActivityController {
     }
 
     @Get(':id')
-    async GetActivity(@Param() params): Promise<ActivityModel[]> {
+    async GetActivity(@Param() params): Promise<ActivityModel> {
         return this.activityService.findOne(params.id);
     }
 

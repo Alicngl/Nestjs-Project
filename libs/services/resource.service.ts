@@ -55,8 +55,8 @@ export class ResourceService<T extends any, C extends any, U extends any>{
 
     }
 
-    async findOne(id: string): Promise<T[]> {
-        return await this.mongoModel.find({ _id: id }).exec();
+    async findOne(id: string): Promise<T> {
+        return await this.mongoModel.findById({ _id: id }).exec();
     }
 
     async delete(id: string): Promise<T> {

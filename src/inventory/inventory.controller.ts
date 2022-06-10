@@ -26,7 +26,7 @@ export class InventoryController {
     }
 
     @Get(':id')
-    async GetInventory(@Param() params): Promise<InventoryModel[]> {
+    async GetInventory(@Param() params): Promise<InventoryModel> {
         return this.inventoryService.findOne(params.id);
     }
 
